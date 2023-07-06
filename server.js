@@ -10,13 +10,15 @@ serverApp.use(express.json());
 serverApp.set("view engine", "ejs");
 
 const userRouter = require("./routes/users")
+const postRouter = require("./routes/posts")
+
 serverApp.use("/", userRouter)
-serverApp.use("/posts", userRouter)
+serverApp.use("/posts", postRouter)
 serverApp.use("/users", userRouter)
 // serverApp.use("/addAllUsers", userRouter)
 
 // Start the server
-serverApp.listen(8001, () => {
-    console.log('Server is listening on port 8001');
+serverApp.listen(3000, () => {
+    console.log('Server is listening on port 3000');
 });
 
