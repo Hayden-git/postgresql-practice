@@ -632,12 +632,15 @@ posts.forEach(post => {
 
 // ROUTER CALLS
 
+// SELECT p.title, u.username
+// FROM public.posts p
+// JOIN public.users u ON p.userid = u.id
 
 postRouter.get("/posts", (req, res) => {
   db.any(`
-    SELECT p.title, u.username
-    FROM public.posts p
-    JOIN public.users u ON p.userid = u.id
+  SELECT public.posts.title, public.users.username
+  FROM public.posts
+  JOIN public.users ON public.posts.userid = public.users.id  
   `)
     .then((data) => {
       res.render("posts/allPosts", { posts: data });
@@ -648,7 +651,21 @@ postRouter.get("/posts", (req, res) => {
     });
 });
 
+// postRouter.route("/posts/:userid").get((req, res) => {
 
+
+// res.render("posts/postByUserId", { post: lookupPostByUserID(req.params.id)} )
+// })
+
+function lookupPostByUserID(userid){
+  let foundPost = undefined
+  posts.forEach(post => {
+      if(post.userid.toString() === userid){
+        foundPost = post
+      }
+  })
+  return foundPost
+}
 
 
 // FUNCTIONS BELOW...
