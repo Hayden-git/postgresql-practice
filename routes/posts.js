@@ -632,9 +632,6 @@ posts.forEach(post => {
 
 // ROUTER CALLS
 
-// SELECT p.title, u.username
-// FROM public.posts p
-// JOIN public.users u ON p.userid = u.id
 
 postRouter.get("/posts", (req, res) => {
   db.any(`
