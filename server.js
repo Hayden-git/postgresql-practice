@@ -12,7 +12,7 @@ serverApp.set("view engine", "ejs");
 const userRouter = require("./routes/users")
 const postRouter = require("./routes/posts")
 
-serverApp.use("/", userRouter)
+serverApp.use("/", userRouter, postRouter)
 serverApp.use("/posts", postRouter)
 serverApp.use("/users", userRouter)
 // serverApp.use("/addAllUsers", userRouter)

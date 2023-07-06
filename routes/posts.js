@@ -633,14 +633,22 @@ posts.forEach(post => {
 // ROUTER CALLS
 
 
-
 postRouter.get("/posts", (req, res) => {
-    res.render("posts/allPosts", {posts: posts})
-  })
+  db.any(`
+    SELECT p.title, u.username
+    FROM public.posts p
+    JOIN public.users u ON p.userid = u.id
+  `)
+    .then((data) => {
+      res.render("posts/allPosts", { posts: data });
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+      res.send('An error occurred');
+    });
+});
 
-// router.get("/addAllPosts", (req, res) => {
-//   res.send("<h1>Posts data was added</h1><br/><h2><a href='./posts'>Go To Posts</a></h2>");
-// })
+
 
 
 // FUNCTIONS BELOW...
